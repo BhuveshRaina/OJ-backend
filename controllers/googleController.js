@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
-const cookieOpts = { httpOnly: true, sameSite: 'Lax', secure: false, path: '/', maxAge: 86400000 };
+const cookieOpts = { httpOnly: true, sameSite: 'none', secure: true, path: '/', maxAge: 86400000 };
 
 exports.googleAuthCallback = (req, res) => {
   const { _id, email } = req.user;
