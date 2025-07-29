@@ -5,7 +5,8 @@ const router = express.Router();
 const googleController = require('../controllers/googleController');
 
 router.get('/', passport.authenticate('google', {
-  scope: ['profile', 'email']
+  scope: ['profile', 'email'],
+  prompt: 'select_account'
 }));
 
 router.get('/callback',
