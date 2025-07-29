@@ -8,10 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app = express();
 
-const allowedOrigins = [
-  'https://oj-frontend-1rtd.vercel.app',
-  'https://oj-frontend-1rtd-1cz45mr68-bhuvesh2004-gmailcoms-projects.vercel.app'
-];
+const allowedOrigins = [process.env.CLIENT_URL];
 
 app.use(cors({
   origin: function (origin, callback) {
