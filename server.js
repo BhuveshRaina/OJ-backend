@@ -8,9 +8,20 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app = express();
 
+const allowedOrigins = [
+  'https://oj-frontend-1rtd.vercel.app',
+  'https://oj-frontend-1rtd-1cz45mr68-bhuvesh2004-gmailcoms-projects.vercel.app'
+];
+
 app.use(cors({
-  origin: process.env.CLIENT_URL, 
-  credentials: true               
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +39,6 @@ app.use("/api/ai", require("./routes/aiReviewRoutes"));
 app.get('/', (req, res) => {
   res.send("Welcome to the Online Judge API!");
 });
-console.log(process.env.REDIS_HOST);
 const PORT = process.env.PORT || 8000;
 const MONGO_URI = process.env.MONGO_URI;
 
